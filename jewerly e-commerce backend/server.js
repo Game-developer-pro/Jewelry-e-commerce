@@ -43,7 +43,7 @@ if (process.env.NODE_ENV === 'production') {
   const frontendPath = path.join(__dirname, '../jewelry e-commerce/dist');
   app.use(express.static(frontendPath));
 
-  app.get('/:path*', (req, res) =>
+  app.get('{/*path}', (req, res) =>
     res.sendFile(path.resolve(frontendPath, 'index.html'))
   );
 } else {
