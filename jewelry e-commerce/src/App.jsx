@@ -18,10 +18,12 @@ import SellerStore from "./pages/SellerStore"
 import Footer from "./Components/Footer"
 import SellerRoute from "./Components/SellerRoute"
 import PaymentCallback from "./pages/PaymentCallback"
+import ScrollToTop from "./Components/ScrollToTop"
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
