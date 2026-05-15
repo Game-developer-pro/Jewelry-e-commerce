@@ -1,0 +1,589 @@
+/* Global resets handled in index.css */
+
+.page {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ─── Hero Section ─── */
+.hero {
+  position: relative;
+  height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.heroBackground img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: slowZoom 25s ease-in-out infinite alternate;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.8) 35%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  z-index: 2;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 3;
+  max-width: 700px;
+  padding: 0 80px;
+  opacity: 0;
+  animation: fadeUp 1s ease-out 0.4s forwards;
+}
+
+.heroSubtitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  color: #6a6a4a;
+}
+
+.heroTitle {
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 1.05;
+  margin-bottom: 30px;
+  letter-spacing: -1.5px;
+  color: #1a1a1a;
+}
+
+.heroTitle em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 600;
+  color: #cda052;
+}
+
+.heroText {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 45px;
+  color: #555;
+  font-weight: 300;
+  max-width: 500px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  padding: 16px 36px;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #1a1a1a;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.primaryBtn:hover {
+  background-color: #cda052;
+  border-color: #cda052;
+}
+
+.secondaryBtn {
+  padding: 16px 36px;
+  background-color: transparent;
+  color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.secondaryBtn:hover {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+/* ─── Collections Section (collage) — hidden in favour of product cards ─── */
+.collections {
+  display: none;
+}
+
+.collectionImageContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.collectionImageContainer img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.collectionText {
+  font-size: 13px;
+  font-weight: 800;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 20px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.collectionDescription {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 3px;
+}
+
+.collectionDescription a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.collectionDescription a:hover {
+  color: #cda052;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+/* ─── Tablet (≤1024px) ─── */
+@media (max-width: 1024px) {
+  .heroContent {
+    padding: 0 40px;
+    max-width: 100%;
+  }
+
+  .heroTitle {
+    font-size: 56px;
+  }
+
+  .overlay {
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.97) 0%,
+      rgba(255, 255, 255, 0.75) 55%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .hero {
+    align-items: flex-end;
+    padding-bottom: 60px;
+  }
+
+  .collectionText {
+    font-size: 12px;
+    gap: 16px;
+  }
+
+  .featureBanner {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .featureImage {
+    display: none;
+  }
+
+  .featureText {
+    padding: 60px 40px;
+    min-height: 400px;
+  }
+}
+
+/* ─── Mobile (≤768px) ─── */
+@media (max-width: 768px) {
+  .hero {
+    align-items: center;
+    padding-bottom: 0;
+    min-height: calc(100vh - 60px);
+  }
+
+  .overlay {
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  .heroContent {
+    padding: 0 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heroTitle {
+    font-size: 42px;
+    letter-spacing: -0.5px;
+  }
+
+  .heroText {
+    font-size: 15px;
+    max-width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .collectionText {
+    font-size: 11px;
+    padding: 16px 12px;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+
+/* ─── Product cards — visible at ALL screen sizes (replaces collage) ─── */
+.mobileProducts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 48px 60px 40px;
+  background-color: #ffffff;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.productCard {
+  text-decoration: none;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transition: opacity 0.25s;
+}
+
+.productCard:hover {
+  opacity: 0.85;
+}
+
+.productImgWrap {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: #ffffff; /* Reverted to white */
+  border-radius: 4px;
+}
+
+.productImgWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  padding: 15px;
+  box-sizing: border-box;
+  transition: transform 0.5s ease;
+  mix-blend-mode: multiply;
+}
+
+.productCard:hover .productImgWrap img {
+  transform: scale(1.05);
+}
+
+.productName {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+/* ─── Small Mobile (≤480px) ─── */
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 34px;
+  }
+
+  .heroSubtitle {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .heroText {
+    font-size: 14px;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    padding: 14px 24px;
+    font-size: 11px;
+  }
+
+  .collectionText {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 16px;
+  }
+}
+
+/* ─── Tablet product grid (≤1024px) ─── */
+@media (max-width: 1024px) {
+  .mobileProducts {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 36px 32px 32px;
+    gap: 16px;
+  }
+}
+
+/* ─── Mobile product grid (≤780px) ─── */
+@media (max-width: 780px) {
+  .mobileProducts {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 14px;
+    padding: 28px 16px 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 100%;
+  }
+
+  .mobileProducts::-webkit-scrollbar {
+    display: none;
+  }
+
+  .productCard {
+    flex: 0 0 calc(50% - 7px);
+    scroll-snap-align: start;
+  }
+
+  .productImgWrap {
+    aspect-ratio: 1 / 1;
+  }
+
+  .productImgWrap img {
+    padding: 5px;
+  }
+
+  .productCard {
+    flex: 0 0 65%;
+    scroll-snap-align: start;
+  }
+}
+
+/* ─── Trending Section ─── */
+.trendingSection {
+  padding: 80px 60px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 28px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 40px;
+  letter-spacing: -0.5px;
+}
+
+.sectionTitle em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 600;
+  color: #cda052;
+}
+
+/* ─── Feature Banner ─── */
+.featureBanner {
+  display: flex;
+  height: 500px;
+  background-color: #f0ede8;
+  overflow: hidden;
+}
+
+.featureText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  text-align: center;
+}
+
+.featureText h2 {
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+
+.featureText p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 30px;
+  max-width: 400px;
+}
+
+.featureImage {
+  flex: 1;
+}
+
+.featureImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── Newsletter Section ─── */
+.newsletterSection {
+  padding: 100px 60px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.newsletterContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.newsletterContent h2 {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+
+.newsletterContent p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.newsletterForm {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.newsletterInput {
+  flex: 1;
+  padding: 16px 20px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.newsletterInput:focus {
+  border-color: #1a1a1a;
+}
+
+.newsletterBtn {
+  padding: 16px 36px;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #1a1a1a;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.newsletterBtn:hover {
+  background-color: #cda052;
+  border-color: #cda052;
+}
+
+/* ─── Media Queries for new sections ─── */
+@media (max-width: 768px) {
+  .trendingSection {
+    padding: 60px 24px;
+  }
+  
+  .featureBanner {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .featureImage {
+    display: none;
+  }
+  
+  .featureText {
+    padding: 60px 24px;
+    min-height: 400px;
+  }
+  
+  .newsletterSection {
+    padding: 60px 24px;
+  }
+  
+  .newsletterForm {
+    flex-direction: column;
+  }
+}
