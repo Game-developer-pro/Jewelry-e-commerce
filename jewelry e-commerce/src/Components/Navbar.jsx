@@ -14,7 +14,6 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('userInfo');
     navigate('/');
-    // Close menu if open
     closeMenu();
   };
 
