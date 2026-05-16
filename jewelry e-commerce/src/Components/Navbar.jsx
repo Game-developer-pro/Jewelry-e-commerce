@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import Navstyles from "./Navbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
-import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,9 +22,7 @@ const Navbar = () => {
     <>
       <nav className={Navstyles.navbar}>
         <div className={Navstyles.logo}>
-          <Link to="/" className={Navstyles.logoLink}>
-            <img src={logo} alt="Aurelia Logo" className={Navstyles.logoImg} />
-          </Link>
+          <Link to="/" className={Navstyles.logoLink}>AURELIA</Link>
         </div>
 
         {/* Desktop nav links */}

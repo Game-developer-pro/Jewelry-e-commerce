@@ -13,16 +13,11 @@
 }
 
 .logoLink {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.logoImg {
-  height: 48px; /* Increased size for better visibility */
-  width: auto;
-  object-fit: contain;
-}
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: white;
+  text-decoration: none;}
 
 .navLinks {
   display: flex;
