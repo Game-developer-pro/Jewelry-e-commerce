@@ -19,7 +19,7 @@
 }
 
 .logoImg {
-  height: 32px; /* Adjusted for navbar height */
+  height: 48px; /* Increased size for better visibility */
   width: auto;
   object-fit: contain;
 }
