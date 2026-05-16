@@ -13,11 +13,15 @@
 }
 
 .logoLink {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: white;
+  display: flex;
+  align-items: center;
   text-decoration: none;
+}
+
+.logoImg {
+  height: 32px; /* Adjusted for navbar height */
+  width: auto;
+  object-fit: contain;
 }
 
 .navLinks {
