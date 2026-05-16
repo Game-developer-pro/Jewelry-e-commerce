@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 const Meta = ({ title, description, keywords }) => {
   return (
     <Helmet>
-      <title>{title ? `${title} | MEJURI` : 'MEJURI | Fine Jewelry'}</title>
+      <title>{title ? `${title} | AURELIA` : 'AURELIA | Fine Jewelry'}</title>
       <meta name='description' content={description} />
       <meta name='keyword' content={keywords} />
     </Helmet>

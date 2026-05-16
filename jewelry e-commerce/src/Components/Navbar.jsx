@@ -22,7 +22,7 @@ const Navbar = () => {
     <>
       <nav className={Navstyles.navbar}>
         <div className={Navstyles.logo}>
-          <Link to="/" className={Navstyles.logoLink}>MEJURI</Link>
+          <Link to="/" className={Navstyles.logoLink}>AURELIA</Link>
         </div>
 
         {/* Desktop nav links */}

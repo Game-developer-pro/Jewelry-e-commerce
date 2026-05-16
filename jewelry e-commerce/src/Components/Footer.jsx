@@ -38,12 +38,12 @@ const Footer = () => {
               <li><Link to="#">Size Guides</Link></li>
               <li><Link to="#">How To Guides</Link></li>
               <li><Link to="#">Blogs</Link></li>
-              <li><Link to="#">Mejuri + Terms & Conditions</Link></li>
+              <li><Link to="#">Aurelia + Terms & Conditions</Link></li>
             </ul>
           </div>
 
           <div className={styles.column}>
-            <h3 className={styles.heading}>About Mejuri</h3>
+            <h3 className={styles.heading}>About Aurelia</h3>
             <ul className={styles.list}>
               <li><Link to="#">Our Mission</Link></li>
               <li><Link to="#">Sustainability</Link></li>
