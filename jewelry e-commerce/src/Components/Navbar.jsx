@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
-  const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartCount } = useContext(CartContext);
   const navigate = useNavigate();
@@ -49,24 +48,16 @@ const Navbar = () => {
         </ul>
 
         <div className={Navstyles.actions}>
-          {/* Search — hidden on mobile to keep bar clean */}
-          <div className={Navstyles.searchContainer}>
-            <button
-              className={Navstyles.iconBtn}
-              onClick={() => setSearchOpen(!searchOpen)}
-              aria-label="Toggle search"
-            >
+          <Link to="/checkout" className={Navstyles.iconBtn} aria-label="Bag">
+            <div className={Navstyles.cartIconWrapper}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
               </svg>
-            </button>
-            <input
-              type="text"
-              placeholder="SEARCH"
-              className={`${Navstyles.searchInput} ${searchOpen ? Navstyles.active : ""}`}
-            />
-          </div>
+              {cartCount > 0 && <span className={Navstyles.cartBadge}>{cartCount}</span>}
+            </div>
+          </Link>
 
           <button className={`${Navstyles.iconBtn} ${Navstyles.hideOnMobile}`} aria-label="Find a store">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -92,23 +83,6 @@ const Navbar = () => {
               </svg>
             </Link>
           )}
-
-          <button className={`${Navstyles.iconBtn} ${Navstyles.hideOnMobile}`} aria-label="Wishlist">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-          </button>
-
-          <Link to="/checkout" className={`${Navstyles.iconBtn} ${Navstyles.hideOnMobile}`} aria-label="Bag">
-            <div className={Navstyles.cartIconWrapper}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <path d="M16 10a4 4 0 0 1-8 0"></path>
-              </svg>
-              {cartCount > 0 && <span className={Navstyles.cartBadge}>{cartCount}</span>}
-            </div>
-          </Link>
 
           {/* Hamburger — visible on mobile */}
           <button
@@ -163,21 +137,6 @@ const Navbar = () => {
               </svg>
             </Link>
           )}
-          <button className={Navstyles.iconBtn} aria-label="Wishlist">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-          </button>
-          <Link to="/checkout" className={Navstyles.iconBtn} onClick={closeMenu} aria-label="Bag">
-            <div className={Navstyles.cartIconWrapper}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <path d="M16 10a4 4 0 0 1-8 0"></path>
-              </svg>
-              {cartCount > 0 && <span className={Navstyles.cartBadge}>{cartCount}</span>}
-            </div>
-          </Link>
         </div>
       </div>
     </>
