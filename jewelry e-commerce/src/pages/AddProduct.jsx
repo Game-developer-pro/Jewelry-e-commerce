@@ -19,6 +19,7 @@ const AddProduct = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const handleChange = (e) => {
     setFormData({
@@ -52,7 +53,7 @@ const AddProduct = () => {
       const data = await api.upload('/api/upload', uploadData, token);
       setFormData(prev => ({ ...prev, image: data.url }));
     } catch (err) {
-      setError(err.message || 'Error uploading image');
+      setError(err.response?.data?.message || err.message || 'Error uploading image');
     } finally {
       setUploading(false);
     }
@@ -63,6 +64,24 @@ const AddProduct = () => {
     setLoading(true);
     setMessage('');
     setError('');
+    
+    // Validate fields
+    const errors = {};
+    if (!formData.name || formData.name.trim().length < 3) errors.name = 'Name must be at least 3 characters';
+    if (!formData.description || formData.description.trim().length < 10) errors.description = 'Description must be at least 10 characters';
+    if (!formData.price || Number(formData.price) < 0) errors.price = 'Price must be a non‑negative number';
+    if (!formData.countInStock || Number(formData.countInStock) < 0) errors.countInStock = 'Stock count must be a non‑negative number';
+    if (!formData.category) errors.category = 'Category is required';
+    if (formData.material && formData.material.trim().length > 0 && formData.material.trim().length < 3) errors.material = 'Material must be at least 3 characters';
+    if (!formData.image) errors.image = 'Product image is required';
+    
+    if (Object.keys(errors).length) {
+      setFieldErrors(errors);
+      setLoading(false);
+      return;
+    } else {
+      setFieldErrors({});
+    }
 
     try {
       const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -83,7 +102,8 @@ const AddProduct = () => {
       });
       setImagePreview(null);
     } catch (err) {
-      setError(err.message || 'An error occurred. Please try again.');
+      const errMsg = err.response?.data?.message || (Array.isArray(err.response?.data?.errors) ? err.response?.data?.errors.join(', ') : null) || err.message || 'An error occurred. Please try again.';
+      setError(errMsg);
     } finally {
       setLoading(false);
     }
@@ -109,6 +129,7 @@ const AddProduct = () => {
               required
               minLength={3}
             />
+            {fieldErrors.name && <div className={styles.fieldError}>{fieldErrors.name}</div>}
           </div>
 
           <div className={styles.formGroup}>
@@ -123,6 +144,7 @@ const AddProduct = () => {
               minLength={10}
               placeholder="Provide a detailed description (min 20 characters)..."
             />
+            {fieldErrors.description && <div className={styles.fieldError}>{fieldErrors.description}</div>}
           </div>
 
           <div style={{ display: 'flex', gap: '1rem' }}>
@@ -138,6 +160,7 @@ const AddProduct = () => {
                 required
                 min="0"
               />
+              {fieldErrors.price && <div className={styles.fieldError}>{fieldErrors.price}</div>}
             </div>
             <div className={styles.formGroup} style={{ flex: 1 }}>
               <label className={styles.label} htmlFor="countInStock">Stock Count</label>
@@ -151,6 +174,7 @@ const AddProduct = () => {
                 required
                 min="0"
               />
+              {fieldErrors.countInStock && <div className={styles.fieldError}>{fieldErrors.countInStock}</div>}
             </div>
           </div>
 
@@ -183,6 +207,7 @@ const AddProduct = () => {
                 placeholder="e.g. 14k Solid Gold (min 3 chars)"
                 minLength={3}
               />
+              {fieldErrors.material && <div className={styles.fieldError}>{fieldErrors.material}</div>}
             </div>
           </div>
 
@@ -192,11 +217,12 @@ const AddProduct = () => {
               type="file"
               id="image"
               name="image"
-              className={styles.input}
+              className={`${styles.input} ${styles.uploadInput}`}
               accept=".jpg,.jpeg,.png,.webp,.avif"
               onChange={handleImageChange}
               required={!formData.image}
             />
+            {fieldErrors.image && <div className={styles.fieldError}>{fieldErrors.image}</div>}
             {uploading && <p style={{ fontSize: '12px', color: '#cda052', marginTop: '5px' }}>Uploading to Database...</p>}
             <p style={{ fontSize: '13px', color: '#0e0909ff', fontWeight: '500', fontFamily: 'Arial, sans-serif' }}>Image to be uploaded should be less than 2MB in size and have the format of .jpg,.jpeg,.png,.webp,.avif and a white background</p>
             {imagePreview && (
