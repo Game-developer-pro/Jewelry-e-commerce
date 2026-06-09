@@ -42,6 +42,7 @@ function App() {
         <Route path="/seller-signup" element={<SellerSignup />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/add-product" element={<SellerRoute><AddProduct /></SellerRoute>} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/edit-product/:id" element={<SellerRoute><EditProduct /></SellerRoute>} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/checkout" element={<Checkout />} />
