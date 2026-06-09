@@ -108,6 +108,17 @@ const Navbar = () => {
           <li><Link to="/bracelets" className={Navstyles.mobileNavLink} onClick={closeMenu}>BRACELETS</Link></li>
           <li><Link to="/necklaces" className={Navstyles.mobileNavLink} onClick={closeMenu}>NECKLACES</Link></li>
           <li><Link to="/sale" className={Navstyles.mobileNavLink} onClick={closeMenu}>% OFF</Link></li>
+          {userInfo && (
+            <li>
+                <Link to="/profile" className={Navstyles.mobileNavLink} onClick={closeMenu}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    Profile
+                </Link>
+            </li>
+          )}
           {(() => {
             const user = userInfo ? JSON.parse(userInfo) : null;
             if (user && (user.isSeller || user.isAdmin)) {

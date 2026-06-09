@@ -6,8 +6,9 @@ import styles from './Profile.module.css';
 const Profile = () => {
   const navigate = useNavigate();
   const { clearCart } = useContext(CartContext);
+  const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({});
-  const [form, setForm] = useState({ name: '', email: '', password: '', storeName: '', phone: '', bio: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '', storeName: '', phone: '', bio: '' });
   const [profilePic, setProfilePic] = useState(null);
   const [message, setMessage] = useState('');
 
@@ -93,8 +94,17 @@ const Profile = () => {
         <input className={styles.input} name="name" value={form.name} onChange={handleChange} />
         <label className={styles.label}>Email</label>
         <input className={styles.input} name="email" type="email" value={form.email} onChange={handleChange} />
-        <label className={styles.label}>Password</label>
-        <input className={styles.input} name="password" type="password" value={form.password} onChange={handleChange} placeholder="Leave blank to keep unchanged" />
+          <label className={styles.label}>Password</label>
+          <div className={styles.passwordWrapper}>
+            <input className={styles.input} name="password" type={showPassword ? "text" : "password"} value={form.password} onChange={handleChange} placeholder="Leave blank to keep unchanged" />
+            <button type="button" className={styles.eyeBtn} onClick={() => setShowPassword(!showPassword)}>{showPassword ? "🙈" : "👁️"}</button>
+          </div>
+          {form.password && (
+            <div>
+              <label className={styles.label}>Confirm Password</label>
+              <input className={styles.input} name="confirmPassword" type={showPassword ? "text" : "password"} value={form.confirmPassword || ''} onChange={handleChange} placeholder="Confirm new password" />
+            </div>
+          )}
         {user.isSeller && (
           <>
             <label className={styles.label}>Store Name</label>
