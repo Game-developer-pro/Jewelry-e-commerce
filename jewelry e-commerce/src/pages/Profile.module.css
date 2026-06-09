@@ -43,6 +43,8 @@
   align-items: center;
 }
 
+.submitBtn,
+.logoutBtn {
   margin-top: 1rem;
   padding: 0.75rem;
   background-color: #222;
@@ -51,6 +53,7 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
 .submitBtn:hover, .logoutBtn:hover {
   background-color: #444;
 }
