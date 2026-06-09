@@ -16,6 +16,13 @@
   max-width: 600px;
 }
 
+@media (max-width: 600px) {
+  .formBox {
+    width: 95%;
+    max-width: none;
+  }
+}
+
 .title {
   text-align: center;
   font-family: 'Inter', sans-serif;

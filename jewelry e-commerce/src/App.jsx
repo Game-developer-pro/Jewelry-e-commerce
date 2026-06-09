@@ -10,6 +10,7 @@ import SellerSignup from "./pages/SellerSignup"
 import Verify from "./pages/Verify"
 import AddProduct from "./pages/AddProduct"
 import ProductDetails from "./pages/ProductDetails"
+import Profile from "./pages/Profile";
 import Checkout from "./pages/Checkout"
 import SalePage from "./pages/SalePage"
 import EditProduct from "./pages/EditProduct"

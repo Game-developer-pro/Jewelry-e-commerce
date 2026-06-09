@@ -37,7 +37,6 @@ const productSchema = new mongoose.Schema(
     },
     image: {
       type: String, // Cloudinary image URL will go here
-      required: true,
     },
     countInStock: {
       type: Number,

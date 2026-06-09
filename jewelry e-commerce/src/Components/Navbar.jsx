@@ -5,13 +5,14 @@ import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { cartCount } = useContext(CartContext);
+  const { cartCount, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
   const userInfo = localStorage.getItem('userInfo');
 
   const closeMenu = () => setMenuOpen(false);
 
   const handleLogout = () => {
+    clearCart();
     localStorage.removeItem('userInfo');
     navigate('/');
     closeMenu();
@@ -66,15 +67,16 @@ const Navbar = () => {
             <span className={Navstyles.iconLabel}>STORES</span>
           </button>
 
-          {userInfo ? (
-            <button className={`${Navstyles.iconBtn} ${Navstyles.hideOnMobile}`} onClick={handleLogout} aria-label="Logout" title="Logout">
+          {userInfo && (
+            <Link to="/profile" className={`${Navstyles.iconBtn} ${Navstyles.hideOnMobile}`} aria-label="Profile" title="Profile">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16 17 21 12 16 7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
               </svg>
-            </button>
-          ) : (
+            </Link>
+          )}
+
+          {!userInfo && (
             <Link to="/login" className={`${Navstyles.iconBtn} ${Navstyles.hideOnMobile}`} aria-label="Login" title="Login">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -120,22 +122,7 @@ const Navbar = () => {
           })()}
         </ul>
         <div className={Navstyles.mobileActions}>
-          {userInfo ? (
-            <button className={Navstyles.iconBtn} onClick={handleLogout} aria-label="Logout" title="Logout">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16 17 21 12 16 7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
-              </svg>
-            </button>
-          ) : (
-            <Link to="/login" className={Navstyles.iconBtn} onClick={closeMenu} aria-label="Login" title="Login">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </Link>
-          )}
+
         </div>
       </div>
     </>

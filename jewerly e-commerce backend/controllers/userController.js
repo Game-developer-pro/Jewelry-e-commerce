@@ -1,5 +1,23 @@
 const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
+const multer = require('multer');
+const path = require('path');
+
+// Multer setup for profile picture uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Store uploads in a dedicated folder within the backend
+    const uploadPath = path.join(__dirname, '..', 'uploads');
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    // Use user ID to create a unique filename
+    cb(null, `${req.user._id}${ext}`);
+  },
+});
+
+const uploadProfilePicMiddleware = multer({ storage }).single('profilePic');
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -49,9 +67,9 @@ const registerUser = async (req, res) => {
     });
 
     if (user) {
-      const { sendWelcomingEmail } = require("../email/mailer.js");
+      const { sendWelcomingEmail } = require('../email/mailer.js');
       sendWelcomingEmail(user.email, user.name);
-      
+
       res.status(201).json({
         _id: user._id,
         name: user.name,
@@ -73,19 +91,19 @@ const registerUser = async (req, res) => {
 // @route   POST /api/users/verify
 // @access  Public
 const verifyEmail = async (req, res) => {
-  console.log("Verify Email request received:", req.body);
+  console.log('Verify Email request received:', req.body);
   const { email, code } = req.body;
 
   try {
     if (!email || !code) {
-      console.log("Missing email or code in request");
+      console.log('Missing email or code in request');
       return res.status(400).json({ message: 'Email and code are required' });
     }
 
     console.log(`Searching for user with email: ${email} and code: ${code}`);
-    const user = await User.findOne({ 
-      email, 
-      verificationCode: code
+    const user = await User.findOne({
+      email,
+      verificationCode: code,
     });
 
     if (!user) {
@@ -95,27 +113,27 @@ const verifyEmail = async (req, res) => {
 
     console.log(`Checking expiration for ${email}. Expire: ${user.verificationCodeExpire}`);
     if (user.verificationCodeExpire && user.verificationCodeExpire < new Date()) {
-       console.log(`Code expired for ${email}`);
-       return res.status(400).json({ message: 'Verification code expired' });
+      console.log(`Code expired for ${email}`);
+      return res.status(400).json({ message: 'Verification code expired' });
     }
 
     console.log(`User found: ${user._id}. Updating verification status...`);
     user.isVerified = true;
     user.verificationCode = undefined;
     user.verificationCodeExpire = undefined;
-    
-    console.log("Saving user...");
+
+    console.log('Saving user...');
     await user.save();
 
     console.log(`Verification successful for ${email}. Generating token...`);
     if (typeof generateToken !== 'function') {
-      console.error("generateToken is not a function!");
-      throw new Error("Internal server configuration error: generateToken missing");
+      console.error('generateToken is not a function!');
+      throw new Error('Internal server configuration error: generateToken missing');
     }
-    
+
     const token = generateToken(user._id.toString());
 
-    console.log("Sending success response");
+    console.log('Sending success response');
     res.json({
       _id: user._id,
       name: user.name,
@@ -126,11 +144,11 @@ const verifyEmail = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error("CRITICAL ERROR in verifyEmail:", error);
-    res.status(500).json({ 
-      message: 'Server Error', 
+    console.error('CRITICAL ERROR in verifyEmail:', error);
+    res.status(500).json({
+      message: 'Server Error',
       error: error.message,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
     });
   }
 };
@@ -150,6 +168,7 @@ const getUserProfile = async (req, res) => {
         isAdmin: user.isAdmin,
         isSeller: user.isSeller,
         isVerified: user.isVerified,
+        ...(user.isSeller && { storeName: user.storeName, phone: user.phone, bio: user.bio, profilePic: user.profilePic }),
       });
     } else {
       res.status(404).json({ message: 'User not found' });
@@ -189,9 +208,9 @@ const registerSeller = async (req, res) => {
     });
 
     if (user) {
-      const { sendVerificationEmail } = require("../email/mailer.js");
+      const { sendVerificationEmail } = require('../email/mailer.js');
       sendVerificationEmail(user.email, user.name, verificationCode);
-      
+
       res.status(201).json({
         message: 'Seller registration successful. Please check your email for the verification code.',
         email: user.email,
@@ -200,7 +219,7 @@ const registerSeller = async (req, res) => {
       res.status(400).json({ message: 'Invalid user data' });
     }
   } catch (error) {
-    console.error("Error in registerSeller:", error);
+    console.error('Error in registerSeller:', error);
     res.status(500).json({ message: 'Server Error' });
   }
 };
@@ -217,5 +236,71 @@ const getSellers = async (req, res) => {
   }
 };
 
-module.exports = { authUser, registerUser, verifyEmail, getUserProfile, registerSeller, getSellers };
+// @desc    Update user profile (including seller fields)
+// @route   PUT /api/users/profile
+// @access  Private
+const updateUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (user) {
+      const { name, email, password, storeName, phone, bio } = req.body;
+      if (name) user.name = name;
+      if (email) user.email = email;
+      if (password) user.password = password; // pre-save hook will hash
+      if (user.isSeller) {
+        if (storeName) user.storeName = storeName;
+        if (phone) user.phone = phone;
+        if (bio) user.bio = bio;
+      }
+      await user.save();
+      const token = generateToken(user._id);
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        isSeller: user.isSeller,
+        isVerified: user.isVerified,
+        token,
+        ...(user.isSeller && { storeName: user.storeName, phone: user.phone, bio: user.bio }),
+        ...(user.isSeller && { profilePic: user.profilePic }),
+      });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
 
+// @desc    Upload profile picture
+// @route   POST /api/users/profile/picture
+// @access  Private
+const uploadProfilePic = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    if (req.file) {
+      // Store relative path for front‑end use
+      user.profilePic = `/uploads/${req.file.filename}`;
+      await user.save();
+    }
+    res.json({ message: 'Profile picture uploaded', profilePic: user.profilePic });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+module.exports = {
+  authUser,
+  registerUser,
+  verifyEmail,
+  getUserProfile,
+  registerSeller,
+  getSellers,
+  updateUserProfile,
+  uploadProfilePic,
+  uploadProfilePicMiddleware,
+};
