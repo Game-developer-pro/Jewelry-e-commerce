@@ -30,7 +30,19 @@
   resize: vertical;
   min-height: 80px;
 }
-.submitBtn, .logoutBtn {
+.eyeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+}
+
   margin-top: 1rem;
   padding: 0.75rem;
   background-color: #222;
