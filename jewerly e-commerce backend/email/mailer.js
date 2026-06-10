@@ -49,7 +49,7 @@ const sendSellerVerificationEmail = (email, name, storeName) => {
             <p>Once verified, you'll be able to list your handcrafted jewelry and start selling to our community.</p>
             <br />
             <p>Best regards,</p>
-            <p>The MEJURI Team</p>
+            <p>The AURELIA Team</p>
         </div>
         `
     );
@@ -65,7 +65,7 @@ const sendSellerVerificationEmail = (email, name, storeName) => {
 
 const sendVerificationEmail = (email, name, verificationCode) => {
     // URL without sensitive parameters
-    const verificationLink = `http://localhost:5173/verify`;
+    const verificationLink = `https://jewelry-e-commerce-ebon.vercel.app/verify`;
     
     const option = mailOption(
         email,
@@ -92,7 +92,7 @@ const sendVerificationEmail = (email, name, verificationCode) => {
             <p>If you didn't create an account, please ignore this email.</p>
             <br />
             <p>Best regards,</p>
-            <p><strong>The MEJURI Team</strong></p>
+            <p><strong>The AURELIA Team</strong></p>
         </div>
         `
     );
