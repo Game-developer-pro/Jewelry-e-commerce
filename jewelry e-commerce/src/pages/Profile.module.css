@@ -1,64 +1,123 @@
 .container {
   max-width: 600px;
   margin: 2rem auto;
-  padding: 1rem;
+  padding: 2.5rem 3rem;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
+
 .title {
-  font-family: 'Inter', sans-serif;
-  font-size: 2rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 500;
   text-align: center;
   margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  letter-spacing: 1px;
 }
+
 .form {
   display: flex;
   flex-direction: column;
 }
+
 .label {
-  margin-top: 0.75rem;
-  font-weight: 500;
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  color: #555;
 }
-.input, .textarea, .fileInput {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+
+.input,
+.textarea,
+.fileInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  margin-top: 0.25rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
 }
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #222;
+}
+
 .textarea {
   resize: vertical;
   min-height: 80px;
 }
-.eyeBtn {
+
+/* Password wrapper matches Auth.module.css exactly */
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordWrapper .input {
+  padding-right: 3rem;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 1rem;
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 0.5rem;
-  font-size: 1rem;
-}
-
-.passwordWrapper {
+  padding: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: color 0.3s;
+}
+
+.eyeIcon:hover {
+  color: #222;
 }
 
 .submitBtn,
 .logoutBtn {
   margin-top: 1rem;
-  padding: 0.75rem;
+  padding: 0.85rem;
   background-color: #222;
   color: #fff;
   border: none;
   border-radius: 4px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
 }
 
-.submitBtn:hover, .logoutBtn:hover {
+.submitBtn:hover,
+.logoutBtn:hover {
   background-color: #444;
 }
+
+.logoutBtn {
+  background-color: transparent;
+  color: #222;
+  border: 1px solid #ddd;
+}
+
+.logoutBtn:hover {
+  background-color: #f5f5f5;
+}
+
 .msg {
   margin: 0.5rem 0;
   text-align: center;
-  color: green;
+  color: #2e7d32;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
 }
