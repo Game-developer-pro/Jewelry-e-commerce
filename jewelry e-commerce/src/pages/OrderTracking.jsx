@@ -52,7 +52,11 @@ const OrderTracking = () => {
                 <div className={styles.orderId}>Order #{order._id.substring(order._id.length - 8).toUpperCase()}</div>
                 <div className={styles.orderDate}>{new Date(order.createdAt).toLocaleDateString()}</div>
               </div>
-              <div className={`${styles.statusBadge} ${order.paymentStatus === 'paid' ? styles.statusPaid : order.paymentStatus === 'failed' ? styles.statusFailed : styles.statusPending}`}>
+              <div className={`${styles.statusBadge} ${
+                order.paymentStatus === 'paid' ? styles.statusPaid : 
+                order.paymentStatus === 'failed' ? styles.statusFailed : 
+                order.paymentStatus === 'cancelled' ? styles.statusCancelled : 
+                styles.statusPending}`}>
                 {order.paymentStatus}
               </div>
             </div>

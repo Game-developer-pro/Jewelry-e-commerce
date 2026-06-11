@@ -80,6 +80,9 @@ router.get('/verify', protect, async (req, res) => {
   const { transaction_id, tx_ref, status } = req.query;
 
   if (status === 'cancelled') {
+    if (tx_ref) {
+      await Order.findOneAndUpdate({ txRef: tx_ref }, { paymentStatus: 'cancelled' });
+    }
     return res.json({ success: false, message: 'Payment was cancelled' });
   }
 
