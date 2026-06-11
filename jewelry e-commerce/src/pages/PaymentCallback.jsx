@@ -110,23 +110,42 @@ const PaymentCallback = () => {
 
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
         {status === 'success' && (
-          <button
-            onClick={() => navigate('/jewelry')}
-            style={{
-              padding: '14px 32px',
-              backgroundColor: '#1a1a1a',
-              color: '#fff',
-              border: 'none',
-              fontSize: '12px',
-              fontWeight: '700',
-              letterSpacing: '1.5px',
-              textTransform: 'uppercase',
-              cursor: 'pointer',
-              borderRadius: '4px',
-            }}
-          >
-            Continue Shopping
-          </button>
+          <>
+            <button
+              onClick={() => navigate('/orders')}
+              style={{
+                padding: '14px 32px',
+                backgroundColor: '#cda052',
+                color: '#fff',
+                border: 'none',
+                fontSize: '12px',
+                fontWeight: '700',
+                letterSpacing: '1.5px',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                borderRadius: '4px',
+              }}
+            >
+              Track Order
+            </button>
+            <button
+              onClick={() => navigate('/jewelry')}
+              style={{
+                padding: '14px 32px',
+                backgroundColor: '#1a1a1a',
+                color: '#fff',
+                border: 'none',
+                fontSize: '12px',
+                fontWeight: '700',
+                letterSpacing: '1.5px',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                borderRadius: '4px',
+              }}
+            >
+              Continue Shopping
+            </button>
+          </>
         )}
         {(status === 'failed' || status === 'cancelled') && (
           <button

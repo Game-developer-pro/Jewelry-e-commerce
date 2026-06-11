@@ -11,6 +11,7 @@ import Verify from "./pages/Verify"
 import AddProduct from "./pages/AddProduct"
 import ProductDetails from "./pages/ProductDetails"
 import Profile from "./pages/Profile";
+import OrderTracking from "./pages/OrderTracking";
 import Checkout from "./pages/Checkout"
 import SalePage from "./pages/SalePage"
 import EditProduct from "./pages/EditProduct"
@@ -45,6 +46,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-product/:id" element={<SellerRoute><EditProduct /></SellerRoute>} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/orders" element={<OrderTracking />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment-callback" element={<PaymentCallback />} />
         <Route path="*" element={<HomePage />} />
