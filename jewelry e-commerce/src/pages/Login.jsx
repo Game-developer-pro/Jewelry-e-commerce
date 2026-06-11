@@ -24,6 +24,12 @@ const Login = () => {
 
     try {
       const data = await api.post('/api/users/login', { email, password });
+      
+      if (data.isSeller && !data.isVerified) {
+        navigate('/verify', { state: { email: data.email, error: 'Unverified account please verify to continue' } });
+        return;
+      }
+
       // Save user data/token (e.g., in localStorage)
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate('/'); // Redirect to home on success

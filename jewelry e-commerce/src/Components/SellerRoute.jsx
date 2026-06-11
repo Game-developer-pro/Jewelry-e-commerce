@@ -12,6 +12,10 @@ const SellerRoute = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
+  if (userInfo.isSeller && !userInfo.isVerified) {
+    return <Navigate to="/verify" state={{ email: userInfo.email, error: 'Unverified account please verify to continue' }} replace />;
+  }
+
   if (!userInfo.isSeller && !userInfo.isAdmin) {
     // Authenticated but not a seller — show an access-denied page
     return (

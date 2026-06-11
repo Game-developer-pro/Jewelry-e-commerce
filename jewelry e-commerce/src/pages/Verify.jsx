@@ -7,7 +7,7 @@ const Verify = () => {
   const location = useLocation();
   const [email, setEmail] = useState(location.state?.email || '');
   const [code, setCode] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(location.state?.error || '');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
