@@ -33,6 +33,9 @@ const Profile = () => {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
+        if (!res.ok) {
+          throw new Error('Failed to fetch profile');
+        }
         const data = await res.json();
         setUser(data);
         setForm({
@@ -77,20 +80,35 @@ const Profile = () => {
         body: JSON.stringify(form),
       });
       const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to update profile');
+      }
+      
+      let newProfilePic = data.profilePic;
+
       // If a picture was selected, upload it separately
       if (profilePic) {
         const picData = new FormData();
         picData.append('profilePic', profilePic);
-        await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile/picture`, {
+        const picRes = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile/picture`, {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` },
           body: picData,
         });
+        if (picRes.ok) {
+           const picJson = await picRes.json();
+           newProfilePic = picJson.profilePic;
+        }
       }
+      
+      const updatedUserInfo = { ...userInfo, ...data, profilePic: newProfilePic };
+      localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
+      setUser(updatedUserInfo);
+      
       setMessage('Profile updated successfully');
       setEditState({ name: false, email: false, password: false, storeName: false, phone: false, bio: false });
     } catch (err) {
-      setMessage('Failed to update profile');
+      setMessage(err.message || 'Failed to update profile');
     }
   };
 

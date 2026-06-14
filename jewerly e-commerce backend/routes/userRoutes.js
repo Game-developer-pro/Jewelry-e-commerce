@@ -8,6 +8,7 @@ router.post('/verify', verifyEmail);
 router.post('/login', authUser);
 router.get('/sellers', getSellers);
 router.post('/register-seller', registerSeller);
+router.get('/profile', protect, getUserProfile);
 router.put('/profile', protect, updateUserProfile);
 router.post('/profile/picture', protect, uploadProfilePicMiddleware, uploadProfilePic);
 module.exports = router;
