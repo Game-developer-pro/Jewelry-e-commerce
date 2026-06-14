@@ -23,6 +23,7 @@
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+  animation: fadeIn 0.4s ease forwards;
 }
 
 .orderHeader {
@@ -122,4 +123,21 @@
   color: #666;
   margin-top: 3rem;
   font-size: 1.1rem;
+}
+
+.skeletonPulse {
+  animation: pulse 1.5s infinite ease-in-out;
+  background-color: #f3f3f3;
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

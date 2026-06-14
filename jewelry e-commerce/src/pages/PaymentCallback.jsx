@@ -20,6 +20,15 @@ const PaymentCallback = () => {
       if (paymentStatus === 'cancelled') {
         setStatus('cancelled');
         setMessage('Payment was cancelled. Your cart has been kept.');
+        try {
+          const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+          await api.get(
+            `/api/payment/verify?transaction_id=${transactionId || ''}&tx_ref=${txRef}&status=${paymentStatus}`,
+            userInfo?.token
+          );
+        } catch (err) {
+          console.error('Failed to update cancelled status on backend', err);
+        }
         return;
       }
 
