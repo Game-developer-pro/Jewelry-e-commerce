@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import styles from './Profile.module.css';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Profile = () => {
   const navigate = useNavigate();
   const { clearCart } = useContext(CartContext);
@@ -30,7 +32,7 @@ const Profile = () => {
         return;
       }
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
+        const res = await fetch(`${API_BASE_URL}/api/users/profile`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         if (!res.ok) {
@@ -71,7 +73,7 @@ const Profile = () => {
     const token = userInfo?.token;
     try {
       // Update textual profile fields
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
+      const res = await fetch(`${API_BASE_URL}/api/users/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +92,7 @@ const Profile = () => {
       if (profilePic) {
         const picData = new FormData();
         picData.append('profilePic', profilePic);
-        const picRes = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile/picture`, {
+        const picRes = await fetch(`${API_BASE_URL}/api/users/profile/picture`, {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` },
           body: picData,
