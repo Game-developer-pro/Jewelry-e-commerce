@@ -39,6 +39,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Serve Static Assets in Production
 if (process.env.NODE_ENV === 'production') {

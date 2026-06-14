@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { api } from "../api";
 import styles from "./CategoryPage.module.css";
+import ProductSkeleton from "../Components/ProductSkeleton";
 
 function SellerStore() {
   const { sellerId } = useParams();
@@ -55,9 +56,10 @@ function SellerStore() {
         </div>
 
         {loading && (
-          <div className={styles.statusWrapper}>
-            <div className={styles.spinner} />
-            <p className={styles.statusText}>Loading collection…</p>
+          <div className={styles.productGrid}>
+            {[...Array(8)].map((_, i) => (
+              <ProductSkeleton key={i} />
+            ))}
           </div>
         )}
 

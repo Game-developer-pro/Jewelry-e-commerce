@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 import styles from './HomePage.module.css'; // Reusing some layout styles
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 import sellerStyles from './SellerSignup.module.css'; // Reusing some seller styles
 
 const Sellers = () => {
@@ -74,9 +76,18 @@ const Sellers = () => {
               fontSize: '2rem',
               color: '#cda052',
               marginBottom: '20px',
-              border: '2px solid #cda052'
+              border: '2px solid #cda052',
+              overflow: 'hidden'
             }}>
-              {(seller.storeName || seller.name || '?')[0].toUpperCase()}
+              {seller.profilePic ? (
+                <img 
+                  src={seller.profilePic.startsWith('/') ? `${API_BASE_URL}${seller.profilePic}` : seller.profilePic} 
+                  alt={seller.storeName || seller.name} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                />
+              ) : (
+                (seller.storeName || seller.name || '?')[0].toUpperCase()
+              )}
             </div>
             <h2 style={{ fontSize: '1.5rem', marginBottom: '10px', color: '#1a1a1a' }}>
               {seller.storeName || seller.name}

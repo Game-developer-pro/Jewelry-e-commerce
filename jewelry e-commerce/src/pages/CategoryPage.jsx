@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import styles from "./CategoryPage.module.css";
 import { api } from "../api";
+import ProductSkeleton from "../Components/ProductSkeleton";
 
 function CategoryPage({ category, title }) {
   const [products, setProducts] = useState([]);
@@ -43,9 +44,10 @@ function CategoryPage({ category, title }) {
         </div>
 
         {loading && (
-          <div className={styles.statusWrapper}>
-            <div className={styles.spinner} />
-            <p className={styles.statusText}>Loading products…</p>
+          <div className={styles.productGrid}>
+            {[...Array(8)].map((_, i) => (
+              <ProductSkeleton key={i} />
+            ))}
           </div>
         )}
 

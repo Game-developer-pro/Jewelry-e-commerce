@@ -12,8 +12,9 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
-    // Use user ID to create a unique filename
-    cb(null, `${req.user._id}${ext}`);
+    // Use user ID if available, otherwise temp name
+    const prefix = req.user ? req.user._id : `temp-${Date.now()}`;
+    cb(null, `${prefix}${ext}`);
   },
 });
 
@@ -205,9 +206,19 @@ const registerSeller = async (req, res) => {
       bio,
       verificationCode,
       verificationCodeExpire,
+      profilePic: req.file ? `/uploads/${req.file.filename}` : undefined,
     });
 
     if (user) {
+      if (req.file) {
+        const fs = require('fs');
+        const oldPath = req.file.path;
+        const newFilename = `${user._id}${path.extname(req.file.originalname)}`;
+        const newPath = path.join(req.file.destination, newFilename);
+        fs.renameSync(oldPath, newPath);
+        user.profilePic = `/uploads/${newFilename}`;
+        await user.save();
+      }
       const { sendVerificationEmail } = require('../email/mailer.js');
       sendVerificationEmail(user.email, user.name, verificationCode);
 

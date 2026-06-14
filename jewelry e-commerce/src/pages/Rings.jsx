@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { api } from "../api";
+import ProductSkeleton from "../Components/ProductSkeleton";
 import styles from "./Rings.module.css";
 import ring1 from "../assets/RingsAssets/Rings-1.webp";
 import ring2 from "../assets/RingsAssets/Rings-2.webp";
@@ -102,9 +103,10 @@ function Rings() {
 
             {/* Loading */}
             {loading && (
-              <div className={styles.statusWrapper}>
-                <div className={styles.spinner} />
-                <p className={styles.statusText}>Loading products…</p>
+              <div className={styles.productGrid}>
+                {[...Array(8)].map((_, i) => (
+                  <ProductSkeleton key={i} />
+                ))}
               </div>
             )}
 

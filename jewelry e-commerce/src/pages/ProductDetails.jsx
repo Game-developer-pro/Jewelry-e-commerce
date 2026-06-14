@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { api } from '../api';
 import styles from './ProductDetails.module.css';
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -37,6 +38,27 @@ const ProductDetails = () => {
 
   return (
     <div className={styles.container}>
+      <button 
+        onClick={() => navigate(-1)} 
+        style={{
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '0.9rem',
+          color: '#666',
+          marginBottom: '20px',
+          textTransform: 'uppercase',
+          letterSpacing: '1px',
+          padding: 0
+        }}
+        aria-label="Go back"
+      >
+        <span style={{ fontSize: '1.2rem' }}>&larr;</span> Back
+      </button>
       <div className={styles.productWrapper}>
         <div className={styles.imageSection}>
           <img src={product.image} alt={product.name} className={styles.productImg} />

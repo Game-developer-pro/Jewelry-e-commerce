@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { api } from "../api";
+import ProductSkeleton from "../Components/ProductSkeleton";
 import styles from "./CategoryPage.module.css";
 
 function SalePage() {
@@ -43,9 +44,10 @@ function SalePage() {
         </div>
 
         {loading && (
-          <div className={styles.statusWrapper}>
-            <div className={styles.spinner} />
-            <p className={styles.statusText}>Loading products…</p>
+          <div className={styles.productGrid}>
+            {[...Array(8)].map((_, i) => (
+              <ProductSkeleton key={i} />
+            ))}
           </div>
         )}
 
