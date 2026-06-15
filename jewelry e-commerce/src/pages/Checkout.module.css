@@ -1,4 +1,4 @@
-.pageWrapper {
+.pageWrapper { background-color: var(--bg-color);
   background-color: #ffffff;
   min-height: 100vh;
   padding: 60px 20px;
@@ -40,7 +40,7 @@
 }
 
 /* ─── Cart Section ─── */
-.cartSection {
+.cartSection { border-top: 1px solid var(--border-color);
   border-top: 1px solid #eee;
 }
 
@@ -143,13 +143,13 @@
   top: 100px;
 }
 
-.summaryCard {
+.summaryCard { background-color: var(--card-bg);
   background-color: #fafafa;
   padding: 32px;
   border-radius: 2px;
 }
 
-.summaryTitle {
+.summaryTitle { color: var(--text-color);
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 24px;
@@ -158,7 +158,7 @@
   color: #1a1a1a;
 }
 
-.summaryRow {
+.summaryRow { color: var(--text-color);
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
@@ -171,7 +171,7 @@
   font-weight: 600;
 }
 
-.totalRow {
+.totalRow { color: var(--text-color);
   border-top: 1px solid #ddd;
   padding-top: 20px;
   margin-top: 20px;
@@ -180,7 +180,7 @@
   color: #1a1a1a;
 }
 
-.checkoutBtn {
+.checkoutBtn { background-color: var(--primary-color);
   width: 100%;
   padding: 18px;
   background-color: #1a1a1a;
@@ -195,7 +195,7 @@
   transition: background-color 0.3s;
 }
 
-.checkoutBtn:hover {
+.checkoutBtn:hover { background-color: var(--accent-color);
   background-color: #cda052;
 }
 
@@ -221,12 +221,12 @@
 }
 
 /* ─── Empty State ─── */
-.emptyCart {
+.emptyCart { color: var(--text-color);
   text-align: center;
   padding: 80px 20px;
 }
 
-.emptyIcon {
+.emptyIcon { color: var(--border-color);
   margin-bottom: 24px;
   color: #ddd;
 }
@@ -237,12 +237,12 @@
   margin-bottom: 12px;
 }
 
-.emptyCart p {
+.emptyCart p { color: var(--text-color);
   color: #666;
   margin-bottom: 32px;
 }
 
-.continueBtn {
+.continueBtn { background-color: var(--primary-color);
   padding: 16px 40px;
   background-color: #1a1a1a;
   color: #fff;

@@ -1,9 +1,10 @@
 .footer {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--bg-secondary);
+  color: var(--text-color);
   padding: 60px 0 20px 0;
   font-family: 'Inter', sans-serif;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 .container {
@@ -23,8 +24,8 @@
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 25px;
-  text-transform: none;
   letter-spacing: 0.5px;
+  color: var(--text-color);
 }
 
 .list {
@@ -39,13 +40,13 @@
 
 .list a {
   text-decoration: none;
-  color: #000;
+  color: var(--text-muted);
   font-size: 12px;
-  transition: opacity 0.2s;
+  transition: color 0.2s;
 }
 
 .list a:hover {
-  opacity: 0.6;
+  color: var(--accent-color);
 }
 
 .certifications {
@@ -57,6 +58,7 @@
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 30px;
+  color: var(--text-color);
 }
 
 .certLogos {
@@ -73,6 +75,7 @@
   max-width: 120px;
   text-align: left;
   line-height: 1.2;
+  color: var(--text-muted);
 }
 
 .bottomBar {
@@ -81,7 +84,7 @@
 
 .divider {
   height: 1px;
-  background-color: #000;
+  background-color: var(--border-color);
   width: 100%;
 }
 
@@ -96,16 +99,13 @@
   .container {
     padding: 0 24px;
   }
-  
   .topSection {
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  
   .heading {
     margin-bottom: 15px;
   }
-  
   .certLogos {
     gap: 20px;
   }

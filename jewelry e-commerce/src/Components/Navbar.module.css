@@ -1,87 +1,66 @@
+/* ─── Base navbar – always dark/black ─── */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
-  height: 60px;
-  background-color: black;
+  height: 64px;
+  background-color: #0a0a0a;
   border-bottom: 1px solid #222;
   position: sticky;
   top: 0;
   z-index: 1000;
   font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark mode: slightly lighter so it pops against the dark page */
+:global(.dark) .navbar {
+  background-color: #111111;
+  border-bottom: 1px solid #2a2a2a;
 }
 
 .logoLink {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 2px;
-  color: white;
-  text-decoration: none;}
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.logoLink:hover {
+  color: #cda052;
+}
 
+/* ─── Desktop nav links ─── */
 .navLinks {
   display: flex;
   list-style: none;
-  gap: 25px;
+  gap: 28px;
   margin: 0;
   padding: 0;
 }
 
 .navLink {
   text-decoration: none;
-  color: white;
+  color: rgba(255,255,255,0.85);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 1px;
-  transition: opacity 0.3s;
+  letter-spacing: 1.5px;
+  transition: color 0.25s ease;
 }
-
 .navLink:hover {
-  opacity: 0.6;
+  color: #cda052;
 }
 
-.highlight {
-  background-color: #4a4a2a;
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 2px;
-}
-
-.highlight:hover {
-  background-color: #3a3a1e;
-  opacity: 1;
-}
-
+/* ─── Actions container ─── */
 .actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 18px;
 }
 
-.searchContainer {
-  display: flex;
-  align-items: center;
-}
-
-.searchInput {
-  width: 0;
-  overflow: hidden;
-  border: none;
-  border-bottom: 1px solid #fff;
-  background: transparent;
-  color: white;
-  transition: width 0.3s ease;
-  outline: none;
-  font-size: 11px;
-  padding: 0;
-}
-
-.searchInput.active {
-  width: 150px;
-  padding: 2px 5px;
-  margin-left: 10px;
-}
-
+/* ─── Icon buttons (cart, orders, profile) ─── */
 .iconBtn {
   background: none;
   border: none;
@@ -90,28 +69,33 @@
   align-items: center;
   gap: 5px;
   padding: 0;
-  color: white;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.iconBtn:hover {
+  color: #cda052;
 }
 
 .iconLabel {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
 }
 
+/* ─── Cart badge ─── */
 .cartIconWrapper {
   position: relative;
   display: inline-flex;
 }
-
 .cartBadge {
   position: absolute;
   top: -6px;
   right: -8px;
   background-color: #cda052;
-  color: white;
+  color: #0a0a0a;
   font-size: 9px;
-  font-weight: bold;
+  font-weight: 700;
   border-radius: 50%;
   width: 16px;
   height: 16px;
@@ -120,7 +104,32 @@
   justify-content: center;
 }
 
-/* Hamburger Button — hidden on desktop */
+/* ─── Theme toggle button (desktop) ─── */
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(205,160,82,0.4);
+  background: rgba(205,160,82,0.08);
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+  padding: 0;
+}
+.themeToggle:hover {
+  background: rgba(205,160,82,0.2);
+  border-color: #cda052;
+  transform: scale(1.1);
+}
+.themeIcon {
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+}
+
+/* ─── Hamburger ─── */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -132,131 +141,120 @@
   padding: 4px;
   z-index: 1100;
 }
-
 .hamburger span {
   display: block;
   width: 22px;
   height: 2px;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 2px;
   transition: transform 0.35s ease, opacity 0.25s ease;
   transform-origin: center;
 }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* Animate to X when open */
-.hamburger.open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.hamburger.open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Mobile Drawer */
+/* ─── Mobile Drawer ─── */
 .mobileMenu {
   display: none;
   position: fixed;
-  top: 60px;
+  top: 64px;
   left: 0;
   width: 100%;
-  height: calc(100vh - 60px);
-  background-color: #111;
+  height: calc(100vh - 64px);
+  background-color: #0a0a0a;
   z-index: 999;
   flex-direction: column;
-  padding: 30px 30px;
+  padding: 30px;
   box-sizing: border-box;
   overflow-y: auto;
   transform: translateX(-100%);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
+:global(.dark) .mobileMenu {
+  background-color: #111111;
+}
 .mobileMenu.open {
   transform: translateX(0);
 }
 
 .mobileNavLinks {
   list-style: none;
-  margin: 0 0 30px 0;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
-
 .mobileNavLinks li {
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid #1e1e1e;
+}
+:global(.dark) .mobileNavLinks li {
+  border-bottom-color: #2a2a2a;
 }
 
 .mobileNavLink {
   display: block;
   text-decoration: none;
-  color: white;
+  color: rgba(255,255,255,0.85);
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   padding: 18px 0;
   transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  text-align: left;
 }
-
 .mobileNavLink:hover {
   color: #cda052;
 }
 
-.mobileHighlight {
-  color: #cda052;
-}
-
-.mobileActions {
+/* ─── Mobile Theme Toggle ─── */
+.mobileThemeToggle {
   display: flex;
-  gap: 20px;
-  padding-top: 10px;
+  align-items: center;
+  gap: 14px;
+  background: rgba(205,160,82,0.08);
+  border: 1px solid rgba(205,160,82,0.3);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 100%;
+  color: #cda052;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.mobileThemeToggle:hover {
+  background: rgba(205,160,82,0.18);
+  border-color: #cda052;
+}
+.mobileThemeIcon {
+  font-size: 20px;
 }
 
-/* ─── Breakpoints ─── */
-.hideOnDesktop {
-  display: none;
-}
+/* ─── Desktop/Mobile show-hide helpers ─── */
+.hideOnDesktop { display: none; }
 
 @media (max-width: 1024px) {
-  .hideOnDesktop {
-    display: block !important;
-  }
-  .navLinks {
-    display: none;
-  }
-  .hamburger {
-    display: flex;
-  }
-  .mobileMenu {
-    display: flex;
-  }
-  .navbar {
-    padding: 0 24px;
-  }
-  .hideOnMobile {
-    display: none !important;
-  }
+  .hideOnDesktop { display: block !important; }
+  .navLinks { display: none; }
+  .hamburger { display: flex; }
+  .mobileMenu { display: flex; }
+  .navbar { padding: 0 24px; }
+  .hideOnMobile { display: none !important; }
 }
 
-
 @media (max-width: 480px) {
-  .navbar {
-    padding: 0 16px;
-  }
-  .iconLabel {
-    display: none;
-  }
-  .searchInput.active {
-    width: 100px;
-  }
-  .logoLink {
-    font-size: 20px;
-  }
-  .actions {
-    gap: 10px;
-  }
+  .navbar { padding: 0 16px; }
+  .iconLabel { display: none; }
+  .logoLink { font-size: 19px; }
+  .actions { gap: 12px; }
 }

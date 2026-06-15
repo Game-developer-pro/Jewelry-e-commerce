@@ -6,28 +6,24 @@ export const ThemeContext = createContext({
 });
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(() => {
+    // Read saved preference from localStorage on first render
+    return localStorage.getItem('theme') || 'light';
+  });
 
-  // Load persisted theme on mount
+  // Apply / remove the "dark" class on <body> whenever theme changes
   useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-      setTheme(saved);
-      document.body.classList.toggle('dark', saved === 'dark');
+    if (theme === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
     }
-  }, []);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.body.classList.toggle('dark', newTheme === 'dark');
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
-
-  // Ensure body class reflects current theme when it changes programmatically
-  useEffect(() => {
-    document.body.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

@@ -1,5 +1,4 @@
 import { ThemeProvider } from './context/ThemeContext';
-import ThemeToggle from './components/ThemeToggle';
 import { Routes, Route } from 'react-router-dom'
 import Navbar from "./Components/Navbar"
 import HomePage from "./pages/HomePage"
@@ -23,12 +22,12 @@ import SellerRoute from "./Components/SellerRoute"
 import PaymentCallback from "./pages/PaymentCallback"
 import ScrollToTop from "./Components/ScrollToTop"
 
+
 function App() {
   return (
     <ThemeProvider>
       <>
         <ScrollToTop />
-        <ThemeToggle />
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
