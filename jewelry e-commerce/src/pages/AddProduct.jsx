@@ -12,6 +12,7 @@ const AddProduct = () => {
     image: '',
     countInStock: '',
     discount: '',
+    averageDeliveryDuration: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -74,6 +75,7 @@ const AddProduct = () => {
     if (!formData.category) errors.category = 'Category is required';
     if (formData.material && formData.material.trim().length > 0 && formData.material.trim().length < 3) errors.material = 'Material must be at least 3 characters';
     if (!formData.image) errors.image = 'Product image is required';
+    if (formData.averageDeliveryDuration && Number(formData.averageDeliveryDuration) <= 0) errors.averageDeliveryDuration = 'Average delivery duration must be greater than 0';
     
     if (Object.keys(errors).length) {
       setFieldErrors(errors);
@@ -99,6 +101,7 @@ const AddProduct = () => {
         image: '',
         countInStock: '',
         discount: '',
+        averageDeliveryDuration: '',
       });
       setImagePreview(null);
     } catch (err) {
@@ -245,6 +248,22 @@ const AddProduct = () => {
               max="99"
               placeholder="e.g. 20 (leave blank for no discount)"
             />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label className={styles.label} htmlFor="averageDeliveryDuration">Average Delivery Duration (days) - Optional</label>
+            <input
+              type="number"
+              id="averageDeliveryDuration"
+              name="averageDeliveryDuration"
+              className={styles.input}
+              value={formData.averageDeliveryDuration}
+              onChange={handleChange}
+              min="1"
+              max="90"
+              placeholder="e.g. 7 (leave blank for default 7 days)"
+            />
+            {fieldErrors.averageDeliveryDuration && <div className={styles.fieldError}>{fieldErrors.averageDeliveryDuration}</div>}
           </div>
 
           <button type="submit" className={styles.submitBtn} disabled={loading || uploading}>

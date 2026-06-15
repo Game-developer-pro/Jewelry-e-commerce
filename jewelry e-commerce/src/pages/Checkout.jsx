@@ -9,6 +9,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState('');
+  const [shippingAddress, setShippingAddress] = useState('');
 
   // Safety fallback for context
   const cartItems = context?.cartItems || [];
@@ -28,10 +29,17 @@ const Checkout = () => {
     setPaying(true);
     setPayError('');
 
+    if (!shippingAddress.trim()) {
+      setPayError('Please provide a shipping address.');
+      setPaying(false);
+      return;
+    }
+
     try {
       const data = await api.post('/api/payment/initiate', {
         cartItems,
         totalAmount: parseFloat(total.toFixed(2)),
+        shippingAddress: shippingAddress.trim(),
       }, userInfo.token);
 
       if (data.paymentLink) {
@@ -106,6 +114,26 @@ const Checkout = () => {
             
             <aside className={styles.summarySection}>
               <div className={styles.summaryCard}>
+                <h2 className={styles.summaryTitle}>Shipping Information</h2>
+                <div style={{ marginBottom: '20px' }}>
+                  <textarea
+                    value={shippingAddress}
+                    onChange={(e) => setShippingAddress(e.target.value)}
+                    placeholder="Enter your full shipping address (Street, City, Zip, Country)..."
+                    rows={4}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      borderRadius: '8px',
+                      border: '1px solid #ddd',
+                      fontFamily: 'inherit',
+                      fontSize: '14px',
+                      resize: 'vertical'
+                    }}
+                    required
+                  />
+                </div>
+
                 <h2 className={styles.summaryTitle}>Order Summary</h2>
                 <div className={styles.summaryRow}>
                   <span>Subtotal</span>

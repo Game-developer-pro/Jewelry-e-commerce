@@ -46,6 +46,10 @@ const productSchema = new mongoose.Schema(
     discount: {
       type: Number,
     },
+    averageDeliveryDuration: {
+      type: Number,
+      default: 7,
+    },
   },
   {
     timestamps: true,

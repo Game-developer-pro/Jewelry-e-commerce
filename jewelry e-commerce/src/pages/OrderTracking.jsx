@@ -93,6 +93,15 @@ const OrderTracking = () => {
                 {order.paymentStatus}
               </div>
             </div>
+
+            <div style={{ padding: '0 20px 15px', fontSize: '14px', color: '#555', borderBottom: '1px solid #eee' }}>
+              <div style={{ marginBottom: '8px' }}>
+                <strong style={{ color: '#333' }}>Shipping To:</strong> {order.shippingAddress || 'N/A'}
+              </div>
+              <div>
+                <strong style={{ color: '#333' }}>Expected Arrival:</strong> <span style={{ color: '#cda052', fontWeight: '500' }}>{order.expectedDeliveryDate ? new Date(order.expectedDeliveryDate).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' }) : 'To be determined'}</span>
+              </div>
+            </div>
             
             <div className={styles.itemsList}>
               {order.orderItems.map((item, idx) => (

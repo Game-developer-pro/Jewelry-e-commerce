@@ -3,21 +3,38 @@ const router = express.Router();
 const axios = require('axios');
 const { protect } = require('../middleware/authMiddleware');
 const Order = require('../models/Order');
+const Product = require('../models/Product');
 
 // ─── Initiate Payment ────────────────────────────────────────────────
 // POST /api/payment/initiate
-// Body: { cartItems: [...], totalAmount }
+// Body: { cartItems: [...], totalAmount, shippingAddress }
 router.post('/initiate', protect, async (req, res) => {
-  const { cartItems, totalAmount } = req.body;
+  const { cartItems, totalAmount, shippingAddress } = req.body;
 
   if (!cartItems || cartItems.length === 0) {
     return res.status(400).json({ message: 'Cart is empty' });
+  }
+
+  if (!shippingAddress) {
+    return res.status(400).json({ message: 'Shipping address is required' });
   }
 
   // Generate a unique transaction reference
   const txRef = `JWL-${req.user._id}-${Date.now()}`;
 
   try {
+    // Calculate expected delivery date based on products
+    const productIds = cartItems.map(item => item._id);
+    const products = await Product.find({ _id: { $in: productIds } });
+    
+    let maxDeliveryDuration = 7; // default 7 days
+    if (products && products.length > 0) {
+      maxDeliveryDuration = Math.max(...products.map(p => p.averageDeliveryDuration || 7));
+    }
+    
+    const expectedDeliveryDate = new Date();
+    expectedDeliveryDate.setDate(expectedDeliveryDate.getDate() + maxDeliveryDuration);
+
     // Save pending order to DB before redirecting
     await Order.create({
       user: req.user._id,
@@ -31,6 +48,8 @@ router.post('/initiate', protect, async (req, res) => {
       totalAmount,
       txRef,
       paymentStatus: 'pending',
+      shippingAddress,
+      expectedDeliveryDate,
     });
 
     // Call Flutterwave Standard Payment API

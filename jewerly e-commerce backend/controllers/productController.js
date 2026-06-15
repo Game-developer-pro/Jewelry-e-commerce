@@ -25,7 +25,7 @@ const getProducts = async (req, res) => {
 // @route   POST /api/products
 // @access  Public (Should be Private/Admin but kept Public for testing)
 const createProduct = async (req, res) => {
-  const { name, description, price, category, material, image, countInStock, discount } = req.body;
+  const { name, description, price, category, material, image, countInStock, discount, averageDeliveryDuration } = req.body;
 
   try {
     const productData = {
@@ -37,6 +37,7 @@ const createProduct = async (req, res) => {
       material,
       image,
       countInStock,
+      averageDeliveryDuration: averageDeliveryDuration !== undefined ? Number(averageDeliveryDuration) : 7,
     };
 
     // Only add discount if it's provided and valid
@@ -88,7 +89,7 @@ const getProductById = async (req, res) => {
 // @route   PUT /api/products/:id
 // @access  Public
 const updateProduct = async (req, res) => {
-  const { name, description, price, category, material, image, countInStock, discount } = req.body;
+  const { name, description, price, category, material, image, countInStock, discount, averageDeliveryDuration } = req.body;
 
   try {
     const product = await Product.findById(req.params.id);
@@ -106,6 +107,7 @@ const updateProduct = async (req, res) => {
       product.material = material || product.material;
       product.image = image || product.image;
       product.countInStock = countInStock !== undefined ? countInStock : product.countInStock;
+      product.averageDeliveryDuration = averageDeliveryDuration !== undefined ? Number(averageDeliveryDuration) : product.averageDeliveryDuration;
       
       // Handle discount specifically (allowing removal if 0 or null)
       if (discount === 0 || discount === null || discount === '') {

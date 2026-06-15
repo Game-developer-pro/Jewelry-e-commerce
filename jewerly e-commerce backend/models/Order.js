@@ -29,6 +29,8 @@ const orderSchema = new mongoose.Schema(
     // Flutterwave's own transaction ID (set after verification)
     flwTransactionId: { type: String },
     paidAt: { type: Date },
+    shippingAddress: { type: String, required: true },
+    expectedDeliveryDate: { type: Date },
   },
   { timestamps: true }
 );
