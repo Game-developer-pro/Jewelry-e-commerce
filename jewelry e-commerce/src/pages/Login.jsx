@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { api } from '../api';
 import styles from './Auth.module.css';
 
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -88,10 +89,7 @@ const Login = () => {
             </div>
           </div>
           <button type="submit" className={styles.submitBtn}>Sign In</button>
-          <div className={styles.orDivider}>OR</div>
-          <button type="button" className={styles.googleBtn} onClick={() => { window.location.href = '/api/users/google-auth'; }}>
-            Sign In with Google
-          </button>
+
         </form>
         <p className={styles.switchText}>
           Don't have an account? <Link to="/signup" className={styles.link}>Sign Up</Link>
