@@ -165,18 +165,6 @@ const Navbar = () => {
             }
             return null;
           })()}
-
-          {/* ── Theme toggle (mobile drawer) ── */}
-          <li>
-            <button
-              className={Navstyles.mobileThemeToggle}
-              onClick={() => { toggleTheme(); closeMenu(); }}
-              aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-            >
-              <span className={Navstyles.mobileThemeIcon}>{theme === "light" ? "🌙" : "☀️"}</span>
-              <span>{theme === "light" ? "DARK MODE" : "LIGHT MODE"}</span>
-            </button>
-          </li>
         </ul>
       </div>
     </>
