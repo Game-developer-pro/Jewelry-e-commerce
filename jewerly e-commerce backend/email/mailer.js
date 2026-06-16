@@ -3,8 +3,8 @@ const env = require("../config/env.js")
 
 let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false, // true for 465, false for 587 (uses STARTTLS)
     family: 4, // Force IPv4 to prevent ENETUNREACH on servers without IPv6
     auth: {
         user: env.appEmail,
