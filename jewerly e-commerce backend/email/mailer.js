@@ -2,7 +2,10 @@ const nodemailer = require("nodemailer")
 const env = require("../config/env.js")
 
 let transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    family: 4, // Force IPv4 to prevent ENETUNREACH on servers without IPv6
     auth: {
         user: env.appEmail,
         pass: env.appPassword
