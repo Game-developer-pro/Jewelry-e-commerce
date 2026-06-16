@@ -9,7 +9,8 @@ const env = {
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
     appEmail: process.env.APP_EMAIL,
-    appPassword: process.env.APP_PASSWORD
+    appPassword: process.env.APP_PASSWORD,
+    resendApiKey: process.env.RESEND_API_KEY
 }
 
 module.exports = env;
