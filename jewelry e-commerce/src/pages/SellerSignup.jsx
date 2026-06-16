@@ -14,16 +14,11 @@ const SellerSignup = () => {
     phone: '',
     bio: '',
   });
-  const [profilePic, setProfilePic] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handlePicChange = (e) => {
-    setProfilePic(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -43,9 +38,6 @@ const SellerSignup = () => {
       Object.keys(formData).forEach((key) => {
         submitData.append(key, formData[key]);
       });
-      if (profilePic) {
-        submitData.append('profilePic', profilePic);
-      }
 
       await api.upload('/api/users/register-seller', submitData);
 
@@ -194,21 +186,10 @@ const SellerSignup = () => {
               <p className={styles.charCount}>{formData.bio.length} / 30 min</p>
             </div>
 
-            <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="profilePic">Profile Picture</label>
-              <input
-                type="file"
-                id="profilePic"
-                name="profilePic"
-                className={styles.input}
-                accept="image/*"
-                onChange={handlePicChange}
-              />
-            </div>
-
             <button type="submit" className={styles.submitBtn} disabled={loading}>
               {loading ? 'Creating Account...' : 'Register as Seller'}
             </button>
+
           </form>
 
           <p className={styles.switchText}>

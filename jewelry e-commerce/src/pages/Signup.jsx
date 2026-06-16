@@ -122,6 +122,10 @@ const Signup = () => {
             </div>
           </div>
           <button type="submit" className={styles.submitBtn}>Sign Up</button>
+          <div className={styles.orDivider}>OR</div>
+          <button type="button" className={styles.googleBtn} onClick={() => { window.location.href = '/api/users/google-auth'; }}>
+            Sign Up with Google
+          </button>
         </form>
         <p className={styles.switchText}>
           Already have an account? <Link to="/login" className={styles.link}>Log In</Link>

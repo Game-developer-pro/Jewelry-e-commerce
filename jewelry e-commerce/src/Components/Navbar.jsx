@@ -2,12 +2,12 @@ import React, { useState, useContext } from "react";
 import Navstyles from "./Navbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
-import { ThemeContext } from "../context/ThemeContext";
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartCount, clearCart } = useContext(CartContext);
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  
   const navigate = useNavigate();
   const userInfo = localStorage.getItem("userInfo");
 
@@ -54,18 +54,6 @@ const Navbar = () => {
 
         {/* Desktop actions */}
         <div className={Navstyles.actions}>
-
-          {/* ── Theme toggle (desktop) ── */}
-          <button
-            className={`${Navstyles.themeToggle} ${Navstyles.hideOnMobile}`}
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-            title={theme === "light" ? "Dark mode" : "Light mode"}
-          >
-            <span className={Navstyles.themeIcon}>
-              {theme === "light" ? "🌙" : "☀️"}
-            </span>
-          </button>
 
           {/* Cart */}
           <Link to="/checkout" className={Navstyles.iconBtn} aria-label="Bag">
