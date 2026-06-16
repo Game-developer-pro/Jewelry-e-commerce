@@ -2,17 +2,14 @@ const nodemailer = require("nodemailer");
 const env = require("../config/env.js");
 
 // Gmail SMTP (STARTTLS on port 587). Force IPv4 to avoid ENETUNREACH on Render.
-let transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+const transporter = nodemailer.createTransport({
+  host: 'smtp.your-email-provider.com', // e.g., smtp.gmail.com
   port: 587,
-  secure: false, // true for 465, false for 587 (STARTTLS)
+  secure: false, // true for 465, false for other ports
+  family: 4,     // <--- ADD THIS LINE TO FORCE IPV4
   auth: {
     user: env.appEmail,
     pass: env.appPassword,
-  },
-  family: 4, // Force IPv4
-  tls: {
-    rejectUnauthorized: false,
   },
 });
 
