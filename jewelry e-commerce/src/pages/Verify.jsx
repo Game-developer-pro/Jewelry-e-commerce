@@ -27,6 +27,20 @@ const Verify = () => {
     }
   };
 
+  const handleResend = async () => {
+    if (!email) {
+      setError('Please enter your email address first.');
+      return;
+    }
+    setError('');
+    try {
+      await api.post('/api/users/resend-verification', { email });
+      setError('Verification email resent! Please check your inbox.');
+    } catch (err) {
+      setError(err.message || 'Failed to resend email.');
+    }
+  };
+
   return (
     <div className={styles.authContainer}>
       <div className={styles.authBox}>
@@ -71,7 +85,7 @@ const Verify = () => {
         </form>
 
         <p className={styles.switchText}>
-          Didn't receive the code? <button onClick={() => window.location.reload()} className={styles.linkBtn}>Resend Email</button>
+          Didn't receive the code? <button type="button" onClick={handleResend} className={styles.linkBtn}>Resend Email</button>
         </p>
       </div>
     </div>

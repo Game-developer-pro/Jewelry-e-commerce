@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { authUser, registerUser, verifyEmail, getUserProfile, registerSeller, getSellers, updateUserProfile, uploadProfilePic, uploadProfilePicMiddleware } = require('../controllers/userController');
+const { authUser, registerUser, verifyEmail, getUserProfile, registerSeller, getSellers, updateUserProfile, uploadProfilePic, uploadProfilePicMiddleware, resendVerificationEmail } = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 
 router.post('/', registerUser);
 router.post('/verify', verifyEmail);
+router.post('/resend-verification', resendVerificationEmail);
 router.post('/login', authUser);
 router.get('/sellers', getSellers);
 router.post('/register-seller', uploadProfilePicMiddleware, registerSeller);

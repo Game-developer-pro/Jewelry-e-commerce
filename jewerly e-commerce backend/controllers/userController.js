@@ -304,6 +304,41 @@ const uploadProfilePic = async (req, res) => {
   }
 };
 
+// @desc    Resend verification email
+// @route   POST /api/users/resend-verification
+// @access  Public
+const resendVerificationEmail = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.isVerified) {
+      return res.status(400).json({ message: 'User is already verified' });
+    }
+
+    // Generate new 6-digit verification code
+    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const verificationCodeExpire = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    user.verificationCode = verificationCode;
+    user.verificationCodeExpire = verificationCodeExpire;
+    await user.save();
+
+    const { sendVerificationEmail: sendEmail } = require('../email/mailer.js');
+    sendEmail(user.email, user.name, verificationCode);
+
+    res.json({ message: 'Verification email resent successfully' });
+  } catch (error) {
+    console.error('Error in resendVerificationEmail:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
 module.exports = {
   authUser,
   registerUser,
@@ -314,4 +349,5 @@ module.exports = {
   updateUserProfile,
   uploadProfilePic,
   uploadProfilePicMiddleware,
+  resendVerificationEmail,
 };
